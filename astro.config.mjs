@@ -6,4 +6,7 @@ export default defineConfig({
   output: "hybrid",
   compressHTML: true,
   adapter: netlify(),
+  server: {
+    port: 3000
+  },
 });
