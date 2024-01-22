@@ -1,0 +1,25 @@
+---
+import Base from "@layouts/Base.astro"
+import persons from "@data/persons.js"
+export async function getStaticPaths() {
+	return persons.map(entry => {
+		const id = entry.id
+		return {
+      params: {
+				id,
+      },
+      props: {
+        entry
+      }
+    }
+	})
+}
+const { entry: { first_name, last_name, email } } = Astro.props
+---
+
+<Base title={`${first_name} ${last_name}`}>
+	<div class="bg-light p-5 rounded mt-3">
+		<h1>{first_name} {last_name}</h1>
+		<p class="lead">{email}</p>
+	</div>
+</Base>
