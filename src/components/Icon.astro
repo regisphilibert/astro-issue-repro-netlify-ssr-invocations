@@ -1,0 +1,40 @@
+---
+import defaultIcon from '@icons/default.svg?raw'
+const { name, classes, ...rest } = Astro.props
+
+let icon = defaultIcon
+async function importIcon(name) {
+  await import(`../icons/${name}.svg?raw`).then((module) => {
+    icon = module.default
+  }).catch((err) => {
+    icon = defaultIcon
+  });
+}
+
+await importIcon(name);
+const attributes = {
+  ...rest,
+  class: classes,
+}
+const attributesStrings = []
+for(let key in attributes) {
+  const value = attributes[key]
+  // We'll only add the atributes if they are data-astro... or class
+  if(key.startsWith("data-astro") || key == "class"){
+    if(["string"].includes(typeof value)){
+      attributesStrings.push(`${key}="${value}"`)
+    // If boolean (data-astro) we only need to print the key
+    } else if(typeof value == "boolean"){
+      if(value){
+        attributesStrings.push(key)
+      }
+    }
+  }
+}
+
+const attributesStringsAsString = attributesStrings.join(' ')
+
+const iconHtml = icon.replace(`<svg `, `<svg ${attributesStringsAsString} astro-icon="${name}" `)
+
+---
+<Fragment set:html={iconHtml} />

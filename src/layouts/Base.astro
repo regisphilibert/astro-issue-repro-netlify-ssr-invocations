@@ -1,6 +1,6 @@
 ---
 import site from "@data/site"
-import { Icon } from "astro-icon"
+import Icon from "@components/Icon.astro"
 const { title = false} = Astro.props
 ---
 <style>
@@ -45,5 +45,8 @@ const { title = false} = Astro.props
       </nav>
       <slot />
     </main>
+    <footer>
+      Test <Icon name="chevron-down" />
+    </footer>
   </body>
 </html>

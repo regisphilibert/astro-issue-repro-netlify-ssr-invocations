@@ -15,6 +15,9 @@
       "@util/*": [
         "src/util/*"
       ],
+      "@icons/*": [
+        "src/icons/*"
+      ],
 			"@data/*": ["src/data/*"],
     },
     "jsx": "react-jsx",
